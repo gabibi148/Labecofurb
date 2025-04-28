@@ -1,0 +1,114 @@
+---
+title: "Gabrielle Mariana Moreira"
+format: html
+editor: visual
+---
+
+```{r}
+#| label: load-packages
+#| include: false
+
+library(tidyverse)
+library(WDI)
+
+adolescentsoutofschoolfemale <- WDI(country = 'all',
+                           indicator = 'SE.SEC.UNER.LO.FE.ZS')
+
+adolescentsoutofschoolfemalebr <-  WDI(country = 'BR',
+                              indicator = 'SE.SEC.UNER.LO.FE.ZS')
+
+adolescentsoutofschoolfemale2023 <- WDI(country = 'all',
+                               indicator = 'SE.SEC.UNER.LO.FE.ZS',
+                               start = 2023, end = 2023)
+```
+
+## Variável
+
+A variável trata do acesso a eletricidade.
+
+## Gráfico com dados em painel
+
+O gráfico mostra o acesso geral a eletricidade no mundo.
+
+```{r}
+#| label: adolescentsoutofschoolfemale
+#| warning: false
+#| echo: false
+
+grafadolescentsoutofschoolfemale <- ggplot(adolescentsoutofschoolfemale,
+                                           aes(x = year, y = SE.SEC.UNER.LO.FE.ZS)) +
+  geom_line(color = "purple", size = 1.2) +  # linha roxa
+  ggtitle("Percentual de Adolescentes do Sexo Feminino Fora da Escola") +
+  theme_minimal() +  # tema limpo
+  theme(
+    plot.title = element_text(
+      size = 20,          # título grande
+      face = "bold",      # em negrito
+      color = "purple",   # cor roxa
+      hjust = 0.5         # centralizado
+    )
+  ) +
+  xlab("Ano") +
+  ylab("Percentual (%)")
+
+print(grafadolescentsoutofschoolfemale)
+```
+
+## Gráfico com dados em painel
+
+O gráfico mostra o acesso a eletricidade no Brasil
+
+```{r}
+#| label: adolescentsoutofschoolfemalebr
+#| warning: false 
+#| echo: false  
+ 
+grafadolescentsoutofschoolfemalebr <- ggplot(adolescentsoutofschoolfemalebr,
+                                             aes(x = year, y = SE.SEC.UNER.LO.FE.ZS)) +
+  geom_line(color = "purple", size = 1.2) +  # linha roxa
+  ggtitle("Percentual de Adolescentes do Sexo Feminino Fora da Escola \n no Brasil") +  # Quebra de linha
+  theme_minimal() +  # tema limpo
+  theme(
+    plot.title = element_text(
+      size = 16,          # tamanho ajustado para caber
+      face = "bold",      # em negrito
+      color = "purple",   # cor roxa
+      hjust = 0.5,        # centralizado
+      lineheight = 1.2    # ajusta o espaçamento entre linhas (caso necessário)
+    )
+  ) +
+  xlab("Ano") +
+  ylab("Percentual (%)")
+
+print(grafadolescentsoutofschoolfemalebr)
+```
+
+## Gráfico com dados em painel
+
+Esse gráfico mostra o acesso a eletricidade no ano de 2010.
+
+```{r}
+#| label: adolescentsoutofschoolfemale2023 
+#| warning: false  
+#| echo: false      
+  
+ grafadolescentsoutofschoolfemale2023 <- ggplot(adolescentsoutofschoolfemale2023,
+                                               aes(x = year, y = SE.SEC.UNER.LO.FE.ZS)) +
+  geom_line(color = "purple", size = 1.2) +  # linha roxa
+  ggtitle("Percentual de Adolescentes do Sexo Feminino Fora da Escola em 2023") +  # Título ajustado
+  theme_minimal() +  # tema limpo
+  theme(
+    plot.title = element_text(
+      size = 16,          # Tamanho ajustado
+      face = "bold",      # Negrito
+      color = "purple",   # Cor roxa
+      hjust = 0.5,        # Centralizado
+      lineheight = 1.2    # Ajuste do espaçamento entre linhas (caso necessário)
+    )
+  ) +
+  xlab("Ano") +
+  ylab("Percentual (%)")
+
+print(grafadolescentsoutofschoolfemale2023)
+
+```
