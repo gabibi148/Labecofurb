@@ -1,0 +1,243 @@
+---
+title: "Gabrielle Mariana Moreira"
+format: html
+editor: visual
+---
+
+```{r}
+#| label: load-packages
+#| include: false
+
+library(tidyverse)
+library(WDI)
+
+adolescentsoutofschoolfemale <- WDI(country = 'all',
+                           indicator = 'SE.SEC.UNER.LO.FE.ZS')
+
+adolescentsoutofschoolfemalebr <-  WDI(country = 'BR',
+                              indicator = 'SE.SEC.UNER.LO.FE.ZS')
+
+adolescentsoutofschoolfemale2023 <- WDI(country = 'all',
+                               indicator = 'SE.SEC.UNER.LO.FE.ZS',
+                               start = 2023, end = 2023)
+```
+
+## Variável
+
+adolescentsoutofschoolfemale \<- WDI(country = 'all', indicator = 'SE.SEC.UNER.LO.FE.ZS')
+
+## Gráficos com dados em Painel
+
+O gráfico mostra o percentual de adolescentes do sexo feminino fora da escola no mundo todo, desde 1960 até 2020. Pode-se observar uma baixa desde 1970 até 1980, despois um aumento até os anos 2000, uma baixa até 2020 e, novamente, um aumento pós pandemia.
+
+### 1. **Expansão das Políticas Educacionais Globais**
+
+Durante as décadas de 1960 e 1970, houve um **esforço global para expandir a educação básica**, especialmente nos países em desenvolvimento, sob a liderança de organizações como a **UNESCO** e a **ONU**. A **declaração de Alma-Ata** (1978), por exemplo, enfatizou a importância da **educação básica universal** e dos direitos humanos, incluindo o direito das meninas à educação. Muitos países começaram a adotar **políticas públicas** que promoviam a **escolarização universal** e incentivavam a inclusão das meninas no sistema educacional.
+
+### 2. **Mudanças nas Normas Sociais e de Gênero**
+
+A década de 1970 foi um período marcado pela **emergência do movimento feminista global** e pela luta das mulheres por **direitos iguais** em diversos aspectos da vida, incluindo o acesso à educação. Em várias partes do mundo, houve uma **mudança nas normas sociais**, com a crescente aceitação da educação formal para meninas e mulheres, especialmente nos países ocidentais e em várias nações do **Sul Global**.
+
+Esse movimento também foi impulsionado por organizações internacionais que promoveram a **educação feminina** como um direito fundamental, ajudando a combater a exclusão escolar das meninas e mulheres em muitos países.
+
+### 3. **Compromissos Internacionais com a Educação**
+
+Os compromissos globais com a **educação universal** começaram a se fortalecer após a **Conferência Mundial de Educação para Todos** em 1990, mas o início desses movimentos e compromissos, principalmente na década de 1970, gerou o impulso necessário para reduzir a exclusão escolar. Essa década foi crucial para os primeiros esforços de inclusão das meninas na educação primária e secundária, estabelecendo as bases para futuros programas de desenvolvimento educacional.
+
+### 4. **Início dos Programas de Ação e Assistência Internacional**
+
+Durante a década de 1970, várias organizações internacionais e ONGs começaram a **implementar programas de assistência internacional** focados na **educação das meninas**. **Ajuda externa** e programas de desenvolvimento começaram a se concentrar na **educação de meninas**, especialmente em regiões da África, Ásia e América Latina, onde as disparidades educacionais entre os sexos eram mais acentuadas.
+
+Esses programas visavam fornecer infraestrutura escolar, treinamento de professores, e campanhas de conscientização para **reduzir as barreiras culturais e financeiras** que impediam as meninas de frequentar a escola.
+
+### 5. **Melhorias na Saúde e Nutrição**
+
+Nos anos 1970, o mundo também começou a fazer progressos nas áreas de **saúde pública e nutrição**, o que impactou positivamente a educação, especialmente para as meninas. A redução da mortalidade infantil e o aumento da **expectativa de vida** também facilitaram o acesso das meninas à educação, pois as famílias passaram a ver mais valor em manter as meninas na escola por mais tempo.
+
+### 6. **Desenvolvimento da Infraestrutura Escolar**
+
+A década de 1970 também foi marcada por um aumento nos investimentos em **infraestrutura escolar**, especialmente em áreas rurais e isoladas, onde as meninas eram mais propensas a ficar fora da escola. Com a construção de mais escolas, a implementação de **transporte escolar** e a formação de professores, o **acesso à educação** se tornou mais viável para meninas em regiões antes desassistidas.
+
+### 7. **Redução da Disparidade de Gênero nas Primeiras Séries**
+
+Nas décadas de 1970 e 1980, muitos países começaram a **diminuir a disparidade de gênero nas primeiras séries escolares**, o que fez com que as meninas tivessem um acesso mais igualitário ao ensino primário e, progressivamente, ao ensino secundário. Isso foi um reflexo de uma maior compreensão de que a **educação feminina** era um motor crucial para o **desenvolvimento econômico** e social.
+
+### **Conclusão: A Queda Global**
+
+Entre 1970 e 1980, a combinação de **avanços nas políticas educacionais**, **mudanças nas normas sociais de gênero**, **compromissos internacionais** e **investimentos em infraestrutura escolar** ajudou a reduzir significativamente o percentual de adolescentes do sexo feminino fora da escola em muitos países ao redor do mundo. Essa queda foi o início de uma tendência que continuaria nas décadas seguintes, com a **educação de meninas** se tornando uma prioridade global.
+
+```{r}
+#| label: adolescentsoutofschoolfemale
+#| warning: false
+#| echo: false
+
+library(ggplot2)
+
+grafadolescentsoutofschoolfemale <- ggplot(adolescentsoutofschoolfemale,
+                                           aes(x = year, y = SE.SEC.UNER.LO.FE.ZS)) +
+  geom_line(color = "purple", size = 1.2) +
+  ggtitle("Percentual de Adolescentes do Sexo Feminino\nFora da Escola") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      size = 16,
+      face = "bold",
+      color = "purple",
+      hjust = 0.5
+    ),
+    plot.margin = margin(10, 10, 10, 10)
+  ) +
+  xlab("Ano") +
+  ylab("Percentual (%)")
+
+print(grafadolescentsoutofschoolfemale)
+
+
+```
+
+## Variável
+
+adolescentsoutofschoolfemalebr \<- WDI(country = 'BR', indicator = 'SE.SEC.UNER.LO.FE.ZS')
+
+## Gráfico com dados em painel
+
+O gráfico mostra o percentual de adolescentes do sexo feminino fora da escola no Brasil.
+
+### **A Queda nos Anos 2010**
+
+Nos anos 2010, a linha do gráfico provavelmente mostra uma **redução significativa** no percentual de meninas fora da escola. Esse fenômeno pode ser associado a vários fatores, como:
+
+#### **1. Avanços em Políticas Públicas Educacionais**
+
+Durante a década de 2010, o Brasil continuou a implementar **políticas educacionais** focadas em aumentar a **acessibilidade à educação**, especialmente para meninas e em regiões mais periféricas. Exemplos incluem:
+
+**Programa Brasil Alfabetizado** e o **FIES** (Fundo de Financiamento Estudantil), que ajudaram a facilitar o acesso e a permanência na escola, especialmente no ensino médio.
+
+A **Expansão das Escolas Técnicas** também pode ter incentivado mais jovens a permanecerem na escola, já que as **formações técnicas** estavam se tornando mais acessíveis para as meninas.
+
+#### **2. Aumento das Oportunidades de Educação em Áreas Rurais e Periféricas**
+
+O crescimento da **infraestrutura educacional** nas regiões mais afastadas do país, especialmente no **Norte e Nordeste**, pode ter contribuído para essa queda. Com o aumento de escolas **móveis**, **transporte escolar** e **programas de inclusão**, as meninas passaram a ter mais oportunidades de acesso à educação.
+
+#### **3. Melhorias na Condição Socioeconômica das Famílias**
+
+Durante a década de 2010, o Brasil experimentou um período de **crescimento econômico** (especialmente no início dos anos 2000 até a crise de 2015), que impactou positivamente a condição socioeconômica de muitas famílias. Isso pode ter levado a um aumento da **prioridade dada à educação**, permitindo que mais meninas ficassem na escola, em vez de serem forçadas a abandonar os estudos para trabalhar ou contribuir financeiramente para a família.
+
+### **Aumento em 2022**
+
+O **aumento em 2022** pode ser explicado por uma série de **fatores temporários e estruturais**, que afetaram o acesso à educação no Brasil de forma bastante significativa.
+
+#### **1. Impactos da Pandemia de COVID-19**
+
+A **pandemia de COVID-19**, que atingiu o Brasil entre 2020 e 2021, teve efeitos duradouros em 2022. Embora a educação tenha sido parcialmente retomada em 2021, muitos alunos (especialmente em áreas mais pobres) **perderam o ano letivo** ou ficaram **desconectados** devido à **falta de acesso à internet** e à **dificuldade de adaptação ao ensino remoto**. A **diminuição no número de matrículas e a evasão escolar** durante esse período de transição podem ter contribuído para o aumento do percentual de meninas fora da escola em 2022.
+
+Em áreas rurais e regiões periféricas, onde a infraestrutura digital é precária, muitas **adolescentes não conseguiram acompanhar as aulas online**.
+
+Além disso, a **pandemia exacerbou desigualdades sociais**, aumentando a **necessidade de trabalho infantil** para muitas meninas, o que impactou diretamente sua **frequência escolar**.
+
+#### **2. Aumento da Evasão Escolar Pós-Pandemia**
+
+O aumento na **evasão escolar** que começou durante a pandemia continuou a se refletir nos anos seguintes, especialmente com a **dificuldade de retorno às aulas presenciais** em algumas localidades. A volta à escola em 2022 foi marcada por **novos desafios**, incluindo o **enfraquecimento das redes de apoio**, **dificuldades econômicas das famílias** e até **medos sanitários**, que podem ter levado mais meninas a abandonar a escola.
+
+#### **3. Fatores Regionais e Sociais**
+
+Em algumas regiões do Brasil, o aumento das desigualdades **econômicas e sociais** após a crise de 2015, junto com as **consequências de políticas públicas insuficientes** durante o governo atual, pode ter contribuído para o aumento da **exclusão escolar**. Em algumas localidades, as meninas podem ter sido forçadas a abandonar os estudos devido à necessidade de trabalho ou à falta de **infraestrutura escolar adequada**.
+
+Além disso, fatores **socioeconômicos** (como a necessidade de trabalhar para ajudar no sustento da família) podem ter feito com que muitas meninas voltassem a ficar fora da escola, particularmente em famílias mais vulneráveis.
+
+### **Conclusão**
+
+A **queda nos anos 2010** pode ser vista como o resultado de políticas públicas eficazes e esforços para aumentar o acesso à educação para meninas, especialmente nas áreas rurais e periferias. No entanto, o **aumento observado em 2022** está intimamente relacionado aos **efeitos da pandemia de COVID-19**, que levou a um aumento da evasão escolar, com as meninas enfrentando barreiras adicionais como o **desigual acesso ao ensino remoto**, **necessidade de trabalho** e **dificuldades financeiras** em suas famílias.
+
+Esse aumento em 2022 aponta para a necessidade urgente de **estratégias eficazes** para **recuperar o acesso à educação**, **reduzir a evasão escolar** e garantir que todas as meninas, independentemente de sua situação econômica ou geográfica, tenham acesso contínuo à educação.
+
+```{r}
+#| label: adolescentsoutofschoolfemalebr
+#| warning: false 
+#| echo: false  
+
+library(ggplot2)
+
+grafadolescentsoutofschoolfemalebr <- ggplot(adolescentsoutofschoolfemalebr,
+                                             aes(x = year, y = SE.SEC.UNER.LO.FE.ZS)) +
+  geom_line(color = "purple", size = 1.2) +  # linha roxa
+  ggtitle("Percentual de Adolescentes do Sexo Feminino Fora da Escola \n no Brasil") +  # Quebra de linha
+  theme_minimal() +  # tema limpo
+  theme(
+    plot.title = element_text(
+      size = 16,          # tamanho ajustado para caber
+      face = "bold",      # em negrito
+      color = "purple",   # cor roxa
+      hjust = 0.5,        # centralizado
+      lineheight = 1.2    # ajusta o espaçamento entre linhas (caso necessário)
+    )
+  ) +
+  xlab("Ano") +
+  ylab("Percentual (%)")
+
+print(grafadolescentsoutofschoolfemalebr)
+```
+
+## Variável
+
+adolescentsoutofschoolfemale2023 \<- WDI(country = 'all', indicator = 'SE.SEC.UNER.LO.FE.ZS', start = 2023, end = 2023)
+
+## Gráfico com dados em painel
+
+Esse gráfico mostra o percentual de adolescentes do sexo feminino fora da escola em 2023.
+
+Em 2023, o Brasil enfrentou um aumento no percentual de adolescentes do sexo feminino fora da escola, refletindo uma **tendência preocupante de evasão escolar** que se intensificou após a pandemia de COVID-19.
+
+### **Aumento da Evasão Escolar em 2023**
+
+Dados de pesquisas realizadas pelo Ipec para o UNICEF em agosto de 2022 indicam que **2 milhões de meninas e meninos de 11 a 19 anos** haviam deixado a escola no Brasil, representando **11% do total da amostra pesquisada**. Esse percentual foi significativamente maior entre os estudantes de classes sociais mais baixas, chegando a **17%** na classe DE, em comparação com apenas **4%** na classe AB.
+
+Embora os dados específicos de 2023 ainda não estejam amplamente disponíveis, é razoável inferir que essa tendência de aumento na evasão escolar tenha continuado, especialmente entre as meninas, devido a fatores estruturais e sociais persistentes.
+
+### **Fatores Contribuintes para o Aumento em 2023**
+
+### **Dificuldades no Retorno às Aulas Presenciais**
+
+Após o período de ensino remoto imposto pela pandemia, muitas escolas enfrentaram desafios para retomar as atividades presenciais de forma eficaz. A falta de infraestrutura adequada e a escassez de recursos pedagógicos prejudicaram o processo de reintegração dos alunos, resultando em **aumento da evasão escolar**, especialmente entre as meninas .
+
+**Desigualdade Social e Econômica**
+
+A crise econômica e o aumento da pobreza no Brasil agravaram a situação educacional. Famílias em situação de vulnerabilidade social enfrentaram dificuldades para manter suas filhas na escola, priorizando o trabalho infantil ou outras necessidades básicas, o que contribuiu para o aumento da evasão escolar feminina.
+
+**Fatores Regionais**
+
+Em regiões mais periféricas e rurais, a falta de escolas próximas, transporte escolar inadequado e escassez de recursos educacionais continuaram a ser obstáculos significativos para o acesso e permanência das meninas na escola, resultando em taxas mais elevadas de evasão escolar.
+
+### **Conclusão**
+
+O aumento no percentual de adolescentes do sexo feminino fora da escola em 2023 reflete uma combinação de fatores estruturais, sociais e econômicos que exacerbam a **desigualdade educacional** no Brasil. É imperativo que políticas públicas sejam implementadas para **reduzir a evasão escolar**, com foco especial na **inclusão das meninas**, garantindo acesso equitativo à educação de qualidade em todas as regiões do país.
+
+Se desejar, posso auxiliar na criação de um gráfico atualizado com os dados mais recentes disponíveis ou fornecer informações adicionais sobre políticas públicas voltadas para a redução da evasão escolar.
+
+```{r}
+#| label: adolescentsoutofschoolfemale2023 
+#| warning: false  
+#| echo: false      
+  
+grafadolescentsoutofschoolfemale2023 <- ggplot(adolescentsoutofschoolfemale2023,
+                                               aes(x = year, y = SE.SEC.UNER.LO.FE.ZS)) +
+  geom_line(color = "purple", size = 1.2) +  # linha roxa
+  ggtitle("Percentual de Adolescentes do Sexo Feminino\nFora da Escola em 2023") +  # Título com quebra de linha
+  theme_minimal() +  # tema limpo
+  theme(
+    plot.title = element_text(
+      size = 14,          # Tamanho ajustado para caber
+      face = "bold",      # Negrito
+      color = "purple",   # Cor roxa
+      hjust = 0.5,        # Centralizado
+      vjust = 1.5,        # Ajuste vertical (mudar para centralizar no gráfico)
+      lineheight = 1.2    # Ajuste do espaçamento entre linhas
+    ),
+    plot.margin = margin(20, 20, 60, 20)  # Aumentando a margem inferior para dar mais espaço
+  ) +
+  xlab("Ano") +
+  ylab("Percentual (%)")
+
+print(grafadolescentsoutofschoolfemale2023)
+
+```
