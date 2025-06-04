@@ -1,0 +1,126 @@
+---
+title: "Gabrielle Mariana Moreira"
+format: html
+editor: visual
+---
+
+```{r}
+
+#| label: load-packages
+#| include: false
+
+
+# Instalar pacotes (se necessário)
+
+install.packages("GetBCBData")
+install.packages("gganimate")
+install.packages("tidyverse")
+install.packages("scales")
+
+
+# Carregar pacotes
+library(gganimate)
+library(GetBCBData)
+library(tidyverse)
+library(scales)
+
+# Definindo ID da série
+my.id <- c(cdi = 13521)
+
+
+
+
+```
+
+## Variável
+
+### Análise da Evolução da Taxa CDI
+
+O gráfico apresentado exibe a **evolução da Taxa CDI (Certificado de Depósito Interbancário)**, um dos principais indicadores financeiros do Brasil, ao longo do tempo. A visualização foi elaborada com o objetivo de destacar a variação desse índice, que serve como referência para as taxas de juros praticadas no mercado interbancário.
+
+### Características do Gráfico
+
+**Linha Roxa**: A linha roxa que percorre o gráfico representa a taxa CDI ao longo dos anos. Ela foi escolhida para destacar a volatilidade e as mudanças na taxa, oferecendo um contraste nítido contra o fundo preto, o que facilita a leitura e a análise do comportamento do indicador.
+
+**Fundo Preto e Título Roxo**: O fundo preto confere uma aparência moderna e elegante ao gráfico, enquanto o título na cor roxa adiciona um toque de sofisticação, criando uma harmonia visual entre os elementos. O título, “Evolução da Taxa CDI”, é destacado para garantir que a principal informação do gráfico seja imediatamente identificada.
+
+**Eixo Y - Taxa em Percentual**: O eixo vertical representa a **taxa CDI** em **percentual ao ano**, com a formatação aplicada para que o valor seja facilmente compreendido como uma porcentagem. A escolha do formato de porcentagem ajuda na interpretação rápida do comportamento da taxa em diferentes momentos.
+
+**Eixo X - Período de Tempo**: O eixo horizontal marca o **tempo**, dividido em intervalos anuais, facilitando a visualização do progresso ao longo dos anos. A distribuição por ano permite que o espectador acompanhe as flutuações e períodos de alta ou baixa na taxa CDI.
+
+**Animação**: O gráfico foi projetado para ser interativo e animado, com a linha roxa revelando-se ao longo do tempo, conforme a taxa CDI é desenhada. A animação ajuda a visualizar a transição das variações da taxa e o impacto das flutuações de forma dinâmica e envolvente. Cada "frame" do gráfico corresponde a um ponto no tempo, mostrando a evolução da taxa CDI de forma gradual.
+
+Conclusões Visuais
+
+Através desse gráfico animado, é possível observar os **picos e vales** da taxa CDI, que refletem os momentos de alta e baixa no mercado financeiro. A partir dessa visualização, os analistas financeiros podem perceber os ciclos econômicos e a resposta da taxa CDI às políticas monetárias e outras variáveis econômicas ao longo dos anos.
+
+Em particular, as flutuações mais acentuadas podem indicar momentos de incerteza econômica, como recessões ou crises financeiras, enquanto os períodos de estabilidade são mais evidentes nos trechos do gráfico onde a linha permanece em uma faixa relativamente estável.
+
+Esse tipo de análise é fundamental para investidores, economistas e gestores financeiros que buscam entender o comportamento das taxas de juros no Brasil e seu impacto sobre a economia, como no caso do custo do crédito ou nas decisões de investimentos em renda fixa.
+
+## Gráficos com dados em Painel
+
+```{r}
+
+#| label: my.id <- c(cdi = 13521)
+#| warning: false
+#| echo: false
+
+
+# Verificar se o pacote foi carregado corretamente
+
+library(gganimate)
+library(ggplot2)
+library(GetBCBData)
+library(tidyverse)
+library(scales)
+
+# Definindo o ID da série CDI
+
+my.id <- c(cdi = 13521)
+
+# Obtendo os dados da série CDI
+
+df.bcb <- gbcbd_get_series(id = my.id,
+                           first.date = '2000-01-01',
+                           last.date = Sys.Date(),
+                           format.data = 'long',
+                           use.memoise = TRUE, 
+                           cache.path = tempdir(), 
+                           do.parallel = FALSE)
+
+
+# Verificando a estrutura dos dados
+glimpse(df.bcb)
+
+# Criando o gráfico animado
+p <- ggplot(df.bcb, aes(x = ref.date, y = value)) +
+  geom_line(color = "purple", size = 1) +
+  scale_y_continuous(labels = percent_format(scale = 1)) +
+  scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
+  labs(
+    title = 'Evolução da Taxa CDI',
+    subtitle = paste0(format(min(df.bcb$ref.date), "%d/%m/%Y"),
+                      ' até ',
+                      format(max(df.bcb$ref.date), "%d/%m/%Y")),
+    x = 'Ano',
+    y = 'CDI (% a.d.)'
+  ) +
+  theme(
+    panel.background = element_rect(fill = "black"),
+    plot.background = element_rect(fill = "black"),
+    panel.grid.major = element_line(color = "gray30"),
+    panel.grid.minor = element_line(color = "gray20"),
+    axis.text = element_text(color = "white"),
+    axis.title = element_text(color = "white"),
+    plot.title = element_text(color = "purple", size = 20, face = "bold"),
+    plot.subtitle = element_text(color = "purple"),
+    axis.ticks = element_line(color = "white")
+  ) +
+  transition_reveal(ref.date)
+
+# Visualizando a animação
+animate(p, nframes = 100, fps = 30, width = 800, height = 450)
+
+p
+```
